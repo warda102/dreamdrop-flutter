@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import '../compte.dart';
-import 'home .dart';
+import 'home.dart';
 import 'dart:math';
 
 void main() => runApp(MaterialApp(

@@ -42,19 +42,15 @@ class _MyHomePageState extends State<HomePage> {
 
   AppBar _buildAppBar() {
     return AppBar(
-        backgroundColor: Color.fromARGB(115, 90, 197, 247),
-        title: Text(widget.title),
-        actions: [
-          Switch(
-            value: imagesVisible,
-            activeColor: Color.fromARGB(255, 72, 109, 233),
-            onChanged: (bool switchState) {
-              setState(() {
-                imagesVisible = switchState;
-              });
-            },
-          ),
-        ]);
+      backgroundColor: Color.fromARGB(115, 90, 197, 247),
+      title: Text(widget.title),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.logout_rounded),
+          onPressed: () {},
+        ),
+      ],
+    );
   }
 
   Widget build(BuildContext context) {
@@ -90,23 +86,6 @@ class _MyHomePageState extends State<HomePage> {
                     MaterialPageRoute<void>(
                       builder: (BuildContext context) => const HomePage(
                         title: 'Finance',
-                      ),
-                    ),
-                  );
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.money),
-                title: const Text(
-                  'Obtenir un Financement ',
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (BuildContext context) => const HomePage(
-                        title: 'Obtenir un Financement',
                       ),
                     ),
                   );

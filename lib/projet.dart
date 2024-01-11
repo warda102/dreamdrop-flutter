@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'dart:math';
+import 'home.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MyProjet(),
     ));
 
-class MyProjet extends StatelessWidget {
+class MyProjet extends StatefulWidget {
+  final String title;
+  const MyProjet({this.title = 'Dream Drop'});
+
   @override
-  Widget build(BuildContext context) {
+  _MyProjetState createState() => _MyProjetState();
+}
+
+class _MyProjetState extends State<MyProjet> {
+  var imagesVisible = true;
+  var cardContent = [];
+  Widget builBody() {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 154, 202, 241),
+        backgroundColor: Color.fromARGB(255, 241, 244, 247),
         body: SingleChildScrollView(
           child: Container(
             child: Column(
@@ -29,7 +39,7 @@ class MyProjet extends StatelessWidget {
                                 child: Text(
                                   "Nouveau Projet",
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: Color.fromARGB(255, 22, 158, 248),
                                       fontSize: 40,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -177,5 +187,104 @@ class MyProjet extends StatelessWidget {
             ),
           ),
         ));
+  }
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      backgroundColor: Color.fromARGB(115, 90, 197, 247),
+      title: Text(widget.title),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.logout_rounded),
+          onPressed: () {
+            Navigator.of(context).popUntil((route) => route.isFirst);
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: _buildAppBar(),
+        body: builBody(),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              const UserAccountsDrawerHeader(
+                currentAccountPicture: CircleAvatar(
+                  backgroundImage: NetworkImage(''),
+                ),
+                accountEmail: Text('Adresse mail'),
+                accountName: Text(
+                  'User',
+                  style: TextStyle(fontSize: 24.0),
+                ),
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(115, 90, 197, 247),
+                ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.grading),
+                title: const Text(
+                  'Finance',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => const HomePage(
+                        title: 'Finance',
+                      ),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.lightbulb),
+                title: const Text(
+                  'Ajout un projet',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => MyProjet(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.list),
+                title: const Text(
+                  'Liste Des Projets',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => const HomePage(
+                        title: 'Liste Des Projets',
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ));
+  }
+
+  Container _buildBody() {
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+      ),
+    );
   }
 }
